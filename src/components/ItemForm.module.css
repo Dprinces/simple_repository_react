@@ -1,0 +1,51 @@
+/* ItemForm.module.css */
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .formLabel {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .formInput {
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .previewContainer {
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  .previewImage {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .saveButton {
+    background-color: #28a745;
+  }
+  
+  .cancelButton {
+    background-color: #dc3545;
+  }
+  

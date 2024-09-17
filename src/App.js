@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import ItemForm from './components/ItemForm';
+import ItemList from './components/ItemList';
 
-function App() {
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [editingItem, setEditingItem] = useState(null);
+
+  useEffect(() => {
+    const savedItems = JSON.parse(localStorage.getItem('items')) || [];
+    setItems(savedItems);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+
+  const handleSave = (item) => {
+    if (editingItem) {
+      setItems(items.map((i) => (i.id === editingItem.id ? { ...item, id: i.id } : i)));
+      setEditingItem(null);
+    } else {
+      setItems([...items, { ...item, id: Date.now() }]);
+    }
+  };
+
+  const handleDelete = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
+  const handleDeleteSelected = () => {
+    setItems(items.filter((item) => !item.selected));
+  };
+
+  const handleEdit = (item) => {
+    setEditingItem(item);
+  };
+
+  const handleCancel = () => {
+    setEditingItem(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Item Repository</h1>
+      <ItemForm itemToEdit={editingItem} onSave={handleSave} onCancel={handleCancel} />
+      <ItemList
+        items={items}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        onDeleteSelected={handleDeleteSelected}
+      />
     </div>
   );
-}
+};
 
 export default App;
